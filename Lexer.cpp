@@ -5,6 +5,10 @@ using std::string;
 
 using namespace Lexer;
 
+inline bool numeric(char c) {
+   return c - '0' >= 0 && c - '0' < 10;
+}
+
 vector<Token> Lexer::tokenize(string input) {
   vector<Token> result;
   string acc = "";
@@ -13,7 +17,7 @@ vector<Token> Lexer::tokenize(string input) {
     switch(c) {
     case ' ':
       if (acc != "") {
-        result.push_back({acc});
+        result.push_back({Type::LIT, acc});
         acc = "";
       }
       break;
@@ -21,14 +25,13 @@ vector<Token> Lexer::tokenize(string input) {
       result.push_back({Type::SYM, "+"});
       break;
     default:
-      int offset = c - '0';
-      if (offset >= 0 && offset < 10) {
+      if (numeric(c)) {
         acc += c;
       }
     }
   }
   if (acc != "") {
-    result.push_back({acc});
+    result.push_back({Type::LIT, acc});
   }
   return result;
 }
