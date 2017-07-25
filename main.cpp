@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include "Lexer.h"
+#include "Parser.h"
 
 using std::string;
 using std::vector;
@@ -12,6 +13,6 @@ string read_input() {
 
 int main() {
   string input = read_input();
-  vector<Token> tokens = tokenize(input);
-  return 0;
+  vector<Lexer::Token> tokens = Lexer::tokenize(input);
+  Parser::Node parse_tree = Parser::parse(tokens);
 }

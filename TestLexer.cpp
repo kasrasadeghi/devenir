@@ -1,11 +1,14 @@
 #include <gtest/gtest.h>
-#include "Lexer.h"
 
 #include <string>
 #include <vector>
 
+#include "Lexer.h"
+
 using std::string;
 using std::vector;
+
+using namespace Lexer;
 
 TEST(Lexer, tokenize) {
   string input = "+ 1 2 ";

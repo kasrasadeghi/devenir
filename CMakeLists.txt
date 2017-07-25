@@ -50,7 +50,7 @@ endfunction()
 
 add_executable(Devenir main.cpp Lexer.h Parser.cpp Parser.h)
 
-make_test(TestLexer "Lexer.h;TestLexer.cpp")
+make_test(TestLexer "Lexer.h;TestLexer.cpp;Lexer.cpp")
 
 ##################### Versions #############################
 
