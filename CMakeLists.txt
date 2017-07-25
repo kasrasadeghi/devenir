@@ -36,8 +36,8 @@ enable_testing()
 
 ##################### Targets ###############################
 
-function(make_test TestName SourceFiles)
-  add_executable(${TestName} ${SourceFiles})
+function(make_test TestName)
+  add_executable(${TestName} ${ARGN})
   add_custom_command(OUTPUT ${TestName}.tmp COMMAND ${VALGRIND} ${TestName} > ${TestName}.tmp)
   add_custom_target(${TestName}.c++x DEPENDS ${TestName}.tmp)
 
@@ -48,9 +48,17 @@ function(make_test TestName SourceFiles)
   set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${TestName}.bin" "${TestName}.plist")
 endfunction()
 
-add_executable(Devenir main.cpp Lexer.h Parser.cpp Parser.h)
+add_executable(Devenir main.cpp
+    Lexer.h  Lexer.cpp
+    Parser.h Parser.cpp
+    )
 
-make_test(TestLexer "Lexer.h;TestLexer.cpp;Lexer.cpp")
+make_test(TestLexer Lexer.h TestLexer.cpp Lexer.cpp)
+
+make_test(TestParser TestParser.cpp
+    Lexer.h Lexer.cpp
+    Parser.h Parser.cpp
+    )
 
 ##################### Versions #############################
 
