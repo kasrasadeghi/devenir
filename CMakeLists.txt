@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.8.2)
 
-project(Graph CXX)
+project(Devenir CXX)
+
+##################### Finding packages ###############################
 
 find_package(Boost REQUIRED COMPONENTS serialization)
 find_package(GTest REQUIRED)
@@ -32,17 +34,25 @@ link_libraries(gtest_main)
 
 enable_testing()
 
-add_executable(Devenir main.cpp Lexer.h)
+##################### Targets ###############################
 
-add_executable(TestLexer Lexer.h TestLexer.cpp Lexer.h)
-add_custom_command(OUTPUT TestLexer.tmp COMMAND ${VALGRIND} TestLexer > TestLexer.tmp)
-add_custom_target(TestLexer.c++x DEPENDS TestLexer.tmp)
+function(make_test TestName SourceFiles)
+  add_executable(${TestName} ${SourceFiles})
+  add_custom_command(OUTPUT ${TestName}.tmp COMMAND ${VALGRIND} ${TestName} > ${TestName}.tmp)
+  add_custom_target(${TestName}.c++x DEPENDS ${TestName}.tmp)
 
-add_test(TestLexer.check1 ${CLANG-CHECK} -extra-arg=-std=c++11 ../TestLexer.c++ --)
-add_test(TestLexer.check2 ${CLANG-CHECK} -extra-arg=-std=c++11 -analyze ../TestLexer.c++ --)
-add_test(TestLexer ${MAKE} TestLexer.c++x)
+  add_test(${TestName}.check1 ${CLANG-CHECK} -extra-arg=-std=c++11 ../${TestName}.c++ --)
+  add_test(${TestName}.check2 ${CLANG-CHECK} -extra-arg=-std=c++11 -analyze ../${TestName}.c++ --)
+  add_test(${TestName} ${MAKE} ${TestName}.c++x)
 
-set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "TestGraph.bin" "TestLexer.plist")
+  set_property(DIRECTORY APPEND PROPERTY ADDITIONAL_MAKE_CLEAN_FILES "${TestName}.bin" "${TestName}.plist")
+endfunction()
+
+add_executable(Devenir main.cpp Lexer.h Parser.cpp Parser.h)
+
+make_test(TestLexer "Lexer.h;TestLexer.cpp")
+
+##################### Versions #############################
 
 add_custom_target(versions)
 
