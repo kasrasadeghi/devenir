@@ -33,8 +33,12 @@ namespace Parse {
   };
 
   class Parser {
-    const std::vector<Lexer::Token>& _vec;
   public:
+    Parser(std::vector<Lexer::Token>& ts): _vec(ts) {}
+    Node parse();
+
+  private:
+    const std::vector<Lexer::Token>& _vec;
     size_t _index = 0;
 
     Lexer::Token _pop()            { return _vec[_index++];         }
@@ -46,9 +50,6 @@ namespace Parse {
     Node _literal();
 
     bool _empty() { return _index == _vec.size(); }
-  public:
-    Parser(std::vector<Lexer::Token>& ts): _vec(ts) {}
-    Node parse();
   };
 
   Node parse(std::vector<Lexer::Token>& ts);
