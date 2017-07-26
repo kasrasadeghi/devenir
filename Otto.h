@@ -13,6 +13,7 @@ namespace VM {
 
   public:
     int evaluate(const Parse::Node& tree);
+    void dump(const Parse::Node& tree, int level = 0);
   };
 
 }

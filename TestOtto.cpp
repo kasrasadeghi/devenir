@@ -13,10 +13,10 @@ using std::vector;
 using Lexer::Token;
 using Lexer::tokenize;
 
-TEST(Otto, evaluate) {
+TEST(Otto, dump) {
   string input = "+ 1 2 ";
   vector<Token> tokens = tokenize(input);
   const Parse::Node tree = Parse::parse(tokens);
   VM::Otto otto;
-  otto.evaluate(tree);
+  otto.dump(tree);
 }

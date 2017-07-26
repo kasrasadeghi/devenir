@@ -4,9 +4,8 @@
 
 using namespace VM;
 
-void dump(const Parse::Node& root, int level=0) {
+void Otto::dump(const Parse::Node& root, int level) {
   for (int i = 0; i < level; ++i) std::cout << "  ";
-
 
   std::cout << root << std::endl;
   ++level;
