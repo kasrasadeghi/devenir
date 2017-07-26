@@ -20,6 +20,17 @@ void Otto::dump(const Parse::Node& root, int level) {
 
 int Otto::evaluate(const Parse::Node& tree) {
   assert(tree.s() == "exec");
-  dump(tree);
+  _expression(tree[0]);
   return 0;
+}
+
+void Otto::_expression(const Parse::Node& node) {
+  assert(node.s() == "+");
+  _literal(node[0]);
+  _literal(node[1]);
+  _push(_pop() + _pop());
+}
+
+void Otto::_literal(const Parse::Node& node) {
+  _push(node.i());
 }

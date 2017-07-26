@@ -20,3 +20,12 @@ TEST(Otto, dump) {
   VM::Otto otto;
   otto.dump(tree);
 }
+
+TEST(Otto, evaluate) {
+  string input = "+ 1 2 ";
+  vector<Token> tokens = tokenize(input);
+  const Parse::Node tree = Parse::parse(tokens);
+  VM::Otto otto;
+  otto.evaluate(tree);
+  ASSERT_EQ(otto.peek(), 3);
+}
