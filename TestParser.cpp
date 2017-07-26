@@ -8,7 +8,7 @@ using std::cout;
 using std::endl;
 
 
-#include "Parser.h"
+#include "Parse.h"
 
 using namespace Parse;
 using namespace Lexer;
@@ -32,8 +32,7 @@ TEST(Parser, tree) {
   vector<Token> tokens = tokenize(input);
   ASSERT_EQ(tokens[1]._value, "1");
   ASSERT_EQ(tokens[2]._value, "2");
-  Parser p(tokens);
-  const Node tree = p.parse();
+  const Node tree = parse(tokens);
   ASSERT_EQ(tree.s(), "exec");
   ASSERT_EQ(tree[0].s(), "+");
   EXPECT_EQ(tree[0][0].i(), 1);

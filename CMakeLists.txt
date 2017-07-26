@@ -50,14 +50,21 @@ endfunction()
 
 add_executable(Devenir main.cpp
     Lexer.h  Lexer.cpp
-    Parser.h Parser.cpp
+    Parse.h Parse.cpp
     )
 
-make_test(TestLexer Lexer.h TestLexer.cpp Lexer.cpp)
+make_test(TestLexer TestLexer.cpp
+    Lexer.h Lexer.cpp)
 
 make_test(TestParser TestParser.cpp
     Lexer.h Lexer.cpp
-    Parser.h Parser.cpp
+    Parse.h Parse.cpp
+    )
+
+make_test(TestOtto TestOtto.cpp
+    Lexer.h Lexer.cpp
+    Parse.h Parse.cpp
+    Otto.h Otto.cpp
     )
 
 ##################### Versions #############################

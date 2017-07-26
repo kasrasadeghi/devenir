@@ -3,7 +3,7 @@
 //
 
 #include <sstream>
-#include "Parser.h"
+#include "Parse.h"
 using namespace Parse;
 
 Node Parse::parse(std::vector<Lexer::Token>& ts){

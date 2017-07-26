@@ -7,6 +7,7 @@
 #include <utility>
 #include <assert.h>
 #include <variant>
+#include <iostream>
 #include "Lexer.h"
 
 namespace Parse {
@@ -22,11 +23,30 @@ namespace Parse {
     Node(const std::string& value): _children(), _value(value) {}
     Node(int value):                _children(), _value(value) {}
     Node& operator+=(Node child)   { _children.push_back(child); return *this; }
-    std::string s() const          { return std::get<std::string>(_value); }
-    int         i() const          { return std::get<int>        (_value); } // TODO node move?
     Node& operator[](size_t index) { return _children[index];              }
     const Node& operator[](size_t i) const
                                    { return _children[i]; }
+
+    std::string s() const          { return std::get<std::string>(_value); }
+    int         i() const          { return std::get<int>        (_value); } // TODO node move?
+
+    std::vector<Node>::const_iterator begin() const
+                                   { return _children.begin(); }
+    std::vector<Node>::iterator begin()
+                                   { return _children.begin(); }
+    std::vector<Node>::const_iterator cbegin()
+                                   { return _children.cbegin(); }
+    std::vector<Node>::const_iterator end() const
+                                   { return _children.end(); }
+    std::vector<Node>::iterator end()
+                                   { return _children.end(); }
+    std::vector<Node>::const_iterator cend()
+                                   { return _children.cend(); }
+
+    inline friend std::ostream& operator<<(std::ostream& out, Node n) {
+      std::visit([&out](auto arg){out << arg;}, n._value);
+      return out;
+    }
   private:
     std::vector<Node> _children;
     std::variant<int, std::string> _value;
