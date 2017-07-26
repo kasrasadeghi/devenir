@@ -22,11 +22,11 @@ namespace Parse {
     Node(const std::string& value): _children(), _value(value) {}
     Node(int value):                _children(), _value(value) {}
     Node& operator+=(Node child)   { _children.push_back(child); return *this; }
-    std::string s() const          { return std::get<std::string>(_value); } // TODO see if += is slower than add
+    std::string s() const          { return std::get<std::string>(_value); }
     int         i() const          { return std::get<int>        (_value); } // TODO node move?
     Node& operator[](size_t index) { return _children[index];              }
     const Node& operator[](size_t i) const
-                                   {return _children[i]; }
+                                   { return _children[i]; }
   private:
     std::vector<Node> _children;
     std::variant<int, std::string> _value;
