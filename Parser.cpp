@@ -2,24 +2,39 @@
 // Created by kasra on 7/25/17.
 //
 
+#include <sstream>
 #include "Parser.h"
-using namespace Parser;
+using namespace Parse;
 
-Node Parser::parse(std::vector<Lexer::Token> tokens) {
+Node Parse::parse(std::vector<Lexer::Token>& ts){
+  return Parser(ts).parse();
+}
+
+Node Parser::parse() {
   Node program("exec");
-  for (const Lexer::Token& token : tokens) {
-    switch(token._type) {
-    case Lexer::Type::ID:
-      exit(111); //TODO implement ID parsing
-      break;
-    case Lexer::Type::SYM:
-      //TODO fixme
-      // for now, this can only be a plus operator '+'
-      program.add(Node{"what"});
-      break;
-    case Lexer::Type::LIT:
-      break;
-    }
-  }
+  while (!_empty())
+    program += _expression();
   return program;
+}
+
+Node Parser::_expression() {
+  _check("+");
+  _pop();
+
+  Node plus("+");
+  plus += _literal();
+  plus += _literal();
+  return plus;
+}
+
+Node Parser::_literal() {
+  _check(Lexer::Type::LIT);
+  Lexer::Token value = _pop();
+
+  // TODO maybe parse exception or something
+  std::stringstream int_stream(value._value);
+  int int_value;
+  int_stream >> int_value;
+
+  return Node(int_value);
 }

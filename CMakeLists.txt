@@ -25,7 +25,7 @@ message(${VALGRIND})
 #add_compile_options (-fprofile-arcs -ftest-coverage)
 add_compile_options(-pedantic -Wall -Weffc++)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 

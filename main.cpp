@@ -14,5 +14,5 @@ string read_input() {
 int main() {
   string input = read_input();
   vector<Lexer::Token> tokens = Lexer::tokenize(input);
-  Parser::Node parse_tree = Parser::parse(tokens);
+  Parse::Node parse_tree = Parse::parse(tokens);
 }
