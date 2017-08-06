@@ -18,13 +18,22 @@ Node Parser::parse() {
 }
 
 Node Parser::_expression() {
-  _check("+");
-  _pop();
+  switch(_peek()._type) {
+  case Lexer::Type::ID:
+    exit(111);
+  case Lexer::Type::SYM: {
+    _check("+");
+    _pop();
 
-  Node plus("+");
-  plus += _literal();
-  plus += _literal();
-  return plus;
+    Node plus("+");
+    plus += _expression();
+    plus += _expression();
+    return plus;
+  }
+  case Lexer::Type::LIT: {
+    return _literal();
+  }
+  }
 }
 
 Node Parser::_literal() {

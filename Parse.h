@@ -62,9 +62,9 @@ namespace Parse {
     size_t _index = 0;
 
     Lexer::Token _pop()            { return _vec[_index++];         }
-    Lexer::Token _curr()           { return _vec[_index];           }
-    void _check(std::string val)   { assert(_curr()._value == val); }
-    void _check(Lexer::Type type)  { assert(_curr()._type == type); }
+    Lexer::Token _peek()          { return _vec[_index];           }
+    void _check(std::string val)   { assert(_peek()._value == val); }
+    void _check(Lexer::Type type)  { assert(_peek()._type == type); }
 
     Node _expression();
     Node _literal();
