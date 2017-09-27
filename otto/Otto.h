@@ -6,7 +6,7 @@
 #define DEVENIR_OTTO_H
 
 #include <stack>
-#include "Parse.h"
+#include "../parser/Parse.h"
 
 namespace VM {
   class Otto {
@@ -20,7 +20,7 @@ namespace VM {
 
   public:
     long peek() { return _stack.top(); }
-    int evaluate(const Parse::Node& tree);
+    long evaluate(const Parse::Node& tree);
     void dump(const Parse::Node& tree, int level = 0);
   };
 

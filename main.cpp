@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
-#include "Lexer.h"
-#include "Parse.h"
+#include "lexer/Lexer.h"
+#include "parser/Parse.h"
 
 using std::string;
 using std::vector;

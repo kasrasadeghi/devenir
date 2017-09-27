@@ -49,22 +49,22 @@ function(make_test TestName)
 endfunction()
 
 add_executable(Devenir main.cpp
-    Lexer.h  Lexer.cpp
-    Parse.h Parse.cpp
+    lexer/Lexer.h lexer/Lexer.cpp
+    parser/Parse.h parser/Parse.cpp
     )
 
-make_test(TestLexer TestLexer.cpp
-    Lexer.h Lexer.cpp)
+make_test(TestLexer lexer/TestLexer.cpp
+    lexer/Lexer.h lexer/Lexer.cpp)
 
-make_test(TestParser TestParser.cpp
-    Lexer.h Lexer.cpp
-    Parse.h Parse.cpp
+make_test(TestParser parser/TestParser.cpp
+    lexer/Lexer.h lexer/Lexer.cpp
+    parser/Parse.h parser/Parse.cpp
     )
 
-make_test(TestOtto TestOtto.cpp
-    Lexer.h Lexer.cpp
-    Parse.h Parse.cpp
-    Otto.h Otto.cpp
+make_test(TestOtto otto/TestOtto.cpp
+    lexer/Lexer.h lexer/Lexer.cpp
+    parser/Parse.h parser/Parse.cpp
+    otto/Otto.h otto/Otto.cpp
     )
 
 ##################### Versions #############################

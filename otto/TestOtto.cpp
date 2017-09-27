@@ -5,10 +5,10 @@ using std::string;
 #include <vector>
 using std::vector;
 
-#include "Parse.h"
+#include "../parser/Parse.h"
 
 #include "Otto.h"
-#include "Lexer.h"
+#include "../lexer/Lexer.h"
 using Lexer::Token;
 using Lexer::tokenize;
 
@@ -25,8 +25,8 @@ TEST(Otto, evaluate) {
   vector<Token> tokens = tokenize(input);
   const Parse::Node tree = Parse::parse(tokens);
   VM::Otto otto;
-  otto.evaluate(tree);
-  ASSERT_EQ(otto.peek(), 3);
+  auto result = otto.evaluate(tree);
+  ASSERT_EQ(result, 3);
 }
 
 TEST(Otto, evaluate_bigger) {
@@ -34,8 +34,8 @@ TEST(Otto, evaluate_bigger) {
   vector<Token> tokens = tokenize(input);
   const Parse::Node tree = Parse::parse(tokens);
   VM::Otto otto;
-  otto.evaluate(tree);
-  ASSERT_EQ(otto.peek(), 141);
+  auto result = otto.evaluate(tree);
+  ASSERT_EQ(result, 141);
 }
 
 TEST(Otto, evaluate_reverse_polish) {
@@ -44,11 +44,12 @@ TEST(Otto, evaluate_reverse_polish) {
   const Parse::Node tree = Parse::parse(tokens);
   VM::Otto otto;
 
+  long result = 0;
   try {
-    otto.evaluate(tree);
+    result = otto.evaluate(tree);
   } catch(...) {
     std::cout << "reverse polish not implemented yet" << std::endl;
     ASSERT_TRUE(false);
   }
-  ASSERT_EQ(otto.peek(), 5);
+  ASSERT_EQ(result, 5);
 }

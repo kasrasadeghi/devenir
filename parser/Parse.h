@@ -8,7 +8,7 @@
 #include <assert.h>
 #include <variant>
 #include <iostream>
-#include "Lexer.h"
+#include "../lexer/Lexer.h"
 
 namespace Parse {
   enum class Type {

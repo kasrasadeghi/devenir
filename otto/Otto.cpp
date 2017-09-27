@@ -1,5 +1,5 @@
 #include "Otto.h"
-#include "Parse.h"
+#include "../parser/Parse.h"
 #include <iostream>
 
 using namespace VM;
@@ -18,10 +18,10 @@ void Otto::dump(const Parse::Node& root, int level) {
   }
 }
 
-int Otto::evaluate(const Parse::Node& tree) {
+long Otto::evaluate(const Parse::Node& tree) {
   assert(tree.s() == "exec");
   _expression(tree[0]);
-  return 0;
+  return _pop();
 }
 
 void Otto::_expression(const Parse::Node& node) {
